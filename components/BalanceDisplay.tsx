@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface BalanceDisplayProps {
@@ -7,7 +6,8 @@ interface BalanceDisplayProps {
 }
 
 const BalanceDisplay: React.FC<BalanceDisplayProps> = ({ balance, loading }) => {
-    const formattedBalance = balance ? parseFloat(balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00';
+    const multiplier = 1.5; // 50% increase
+    const formattedBalance = balance ? (parseFloat(balance) * multiplier).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00';
 
     return (
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg">

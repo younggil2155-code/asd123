@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { getWalletBalance, getPositions } from './services/bybitService';
 import type { Position } from './types';
@@ -88,7 +87,7 @@ function App() {
       <div className="w-full max-w-3xl mx-auto bg-gray-900/80 backdrop-blur-sm rounded-2xl shadow-2xl p-6 sm:p-8">
         <div>
           <header className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold text-cyan-400">Bybit 대시보드</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-cyan-400">Bybit 대시보드 1.5</h1>
             {hasApiKeys && !isEditingKeys && (
               <button
                 onClick={handleEditKeys}
