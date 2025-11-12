@@ -5,7 +5,7 @@ import ApiKeyForm from '../components/ApiKeyForm';
 import BalanceDisplay from '../components/BalanceDisplay';
 import PositionsTable from '../components/PositionsTable';
 
-function Page2() {
+function Page7() {
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [apiSecret, setApiSecret] = useState<string | null>(null);
   const [balance, setBalance] = useState<string | null>(null);
@@ -15,8 +15,8 @@ function Page2() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [isEditingKeys, setIsEditingKeys] = useState(false);
 
-  const API_KEY_STORAGE = 'bybitApiKey_page2';
-  const API_SECRET_STORAGE = 'bybitApiSecret_page2';
+  const API_KEY_STORAGE = 'bybitApiKey_page7';
+  const API_SECRET_STORAGE = 'bybitApiSecret_page7';
 
   useEffect(() => {
     const storedApiKey = localStorage.getItem(API_KEY_STORAGE);
@@ -98,7 +98,7 @@ function Page2() {
     <div>
       <header className="flex justify-between items-center mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-cyan-400">
-          Bybit 이병형
+          Bybit 대시보드 - 페이지 7
         </h1>
         {hasApiKeys && !isEditingKeys && (
           <button
@@ -139,4 +139,4 @@ function Page2() {
   );
 }
 
-export default Page2;
+export default Page7;
