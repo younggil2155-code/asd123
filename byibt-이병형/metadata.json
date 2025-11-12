@@ -1,0 +1,5 @@
+{
+  "name": "Byibt 이병형",
+  "description": "Bybit API 키를 사용하여 계정의 총 잔고와 현재 열려 있는 포지션을 조회하는 웹 애플리케이션입니다. 데이터는 1분마다 자동으로 갱신됩니다.",
+  "requestFramePermissions": []
+}
