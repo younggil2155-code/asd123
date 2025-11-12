@@ -7,8 +7,6 @@ interface PositionsTableProps {
 }
 
 const PositionsTable: React.FC<PositionsTableProps> = ({ positions, loading }) => {
-  const multiplier = 1.5; // 50% increase
-
   const renderLoadingSkeleton = () => {
     return Array.from({ length: 3 }).map((_, index) => (
       <tr key={index} className="border-b border-gray-700 animate-pulse">
@@ -41,7 +39,7 @@ const PositionsTable: React.FC<PositionsTableProps> = ({ positions, loading }) =
                 </tr>
             ) : (
               positions.map((pos) => {
-                const pnl = parseFloat(pos.unrealisedPnl) * multiplier;
+                const pnl = parseFloat(pos.unrealisedPnl);
                 const pnlColor = pnl > 0 ? 'text-green-400' : pnl < 0 ? 'text-red-400' : 'text-gray-300';
                 const sideText = pos.side === 'Buy' ? '롱' : '숏';
                 const sideColor = pos.side === 'Buy' ? 'text-green-400' : 'text-red-400';

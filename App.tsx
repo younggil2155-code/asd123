@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { getWalletBalance, getPositions } from './services/bybitService';
-import type { Position } from './types';
+import type { Position, CoinBalance } from './types';
 import ApiKeyForm from './components/ApiKeyForm';
 import BalanceDisplay from './components/BalanceDisplay';
 import PositionsTable from './components/PositionsTable';
+import AssetsBreakdown from './components/AssetsBreakdown';
 
 function App() {
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [apiSecret, setApiSecret] = useState<string | null>(null);
   const [balance, setBalance] = useState<string | null>(null);
+  const [assets, setAssets] = useState<CoinBalance[]>([]);
   const [positions, setPositions] = useState<Position[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -35,8 +37,9 @@ function App() {
         getPositions(apiKey, apiSecret),
       ]);
       
-      const totalEquity = balanceRes?.list?.[0]?.totalEquity;
-      setBalance(totalEquity);
+      const walletData = balanceRes?.list?.[0];
+      setBalance(walletData?.totalEquity);
+      setAssets(walletData?.coin || []);
 
       const openPositions = (positionsRes?.list || []).filter(p => parseFloat(p.size) > 0);
       setPositions(openPositions);
@@ -49,6 +52,7 @@ function App() {
         setError('알 수 없는 오류가 발생했습니다.');
       }
       setBalance(null);
+      setAssets([]);
       setPositions([]);
     } finally {
       setLoading(false);
@@ -87,7 +91,7 @@ function App() {
       <div className="w-full max-w-3xl mx-auto bg-gray-900/80 backdrop-blur-sm rounded-2xl shadow-2xl p-6 sm:p-8">
         <div>
           <header className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold text-cyan-400">Bybit 대시보드 1.5</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-cyan-400">Bybit 대시보드 1.0</h1>
             {hasApiKeys && !isEditingKeys && (
               <button
                 onClick={handleEditKeys}
@@ -108,6 +112,7 @@ function App() {
           ) : (
             <main className="space-y-6">
               <BalanceDisplay balance={balance} loading={loading} />
+              <AssetsBreakdown assets={assets} loading={loading} />
               <PositionsTable positions={positions} loading={loading} />
 
               {error && (

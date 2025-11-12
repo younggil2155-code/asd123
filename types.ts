@@ -7,13 +7,15 @@ export interface BybitResponse<T> {
   time: number;
 }
 
+export interface CoinBalance {
+    equity: string;
+    coin: string;
+}
+
 export interface WalletBalance {
   list: {
     totalEquity: string;
-    coin: {
-        equity: string;
-        coin: string;
-    }[];
+    coin: CoinBalance[];
   }[];
 }
 
