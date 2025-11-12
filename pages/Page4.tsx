@@ -38,7 +38,7 @@ function Page4() {
         getPositions(apiKey, apiSecret),
       ]);
 
-      const multiplier = 1.69;
+      const multiplier = 0.59;
 
       const totalEquity = balanceRes?.list?.[0]?.totalEquity;
       if (totalEquity) {
