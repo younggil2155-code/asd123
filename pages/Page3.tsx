@@ -38,21 +38,25 @@ function Page3() {
         getPositions(apiKey, apiSecret),
       ]);
 
+      const multiplier = 1.96;
+
       const totalEquity = balanceRes?.list?.[0]?.totalEquity;
       if (totalEquity) {
-        const inflatedBalance = parseFloat(totalEquity) * 2.5;
-        setBalance(inflatedBalance.toString());
+        const adjustedBalance = (parseFloat(totalEquity) * multiplier).toString();
+        setBalance(adjustedBalance);
       } else {
         setBalance(null);
       }
 
-      const openPositions = (positionsRes?.list || []).filter(p => parseFloat(p.size) > 0);
-      const inflatedPositions = openPositions.map(pos => ({
-        ...pos,
-        unrealisedPnl: (parseFloat(pos.unrealisedPnl) * 2.5).toString()
-      }));
+      const openPositions = (positionsRes?.list || [])
+        .filter(p => parseFloat(p.size) > 0)
+        .map(p => ({
+            ...p,
+            size: (parseFloat(p.size) * multiplier).toString(),
+            unrealisedPnl: (parseFloat(p.unrealisedPnl) * multiplier).toString(),
+        }));
 
-      setPositions(inflatedPositions);
+      setPositions(openPositions);
       setLastUpdated(new Date());
 
     } catch (err) {
@@ -98,7 +102,7 @@ function Page3() {
     <div>
       <header className="flex justify-between items-center mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-cyan-400">
-          Bybit 대시보드 - 페이지 3
+          Bybit 이병형 계정 3
         </h1>
         {hasApiKeys && !isEditingKeys && (
           <button

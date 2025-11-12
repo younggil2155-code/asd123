@@ -47,19 +47,13 @@ function Page1() {
 
       const totalEquity = balanceRes?.list?.[0]?.totalEquity;
       if (totalEquity) {
-        const inflatedBalance = parseFloat(totalEquity) * 2.5;
-        setBalance(inflatedBalance.toString());
+        setBalance(totalEquity);
       } else {
         setBalance(null);
       }
 
       const openPositions = (positionsRes?.list || []).filter(p => parseFloat(p.size) > 0);
-      const inflatedPositions = openPositions.map(pos => ({
-        ...pos,
-        unrealisedPnl: (parseFloat(pos.unrealisedPnl) * 2.5).toString()
-      }));
-
-      setPositions(inflatedPositions);
+      setPositions(openPositions);
       setLastUpdated(new Date());
 
     } catch (err) {
@@ -105,7 +99,7 @@ function Page1() {
     <div>
       <header className="flex justify-between items-center mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-cyan-400">
-          Bybit 대시보드 - 페이지 1
+          Bybit 이병형 계정 1
         </h1>
         {hasApiKeys && !isEditingKeys && (
           <button
