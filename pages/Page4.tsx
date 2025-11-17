@@ -5,12 +5,12 @@ import BalanceDisplay from '../components/BalanceDisplay';
 import PositionsTable from '../components/PositionsTable';
 
 // --- 4번 계정 API 설정 ---
-// 아래 "" 안에 실제 API 키와 시크릿을 입력하세요.
-const apiKey = ""; 
-const apiSecret = ""; 
+const apiKey = "nt82KSi67On0pnkomH"; 
+const apiSecret = "AMsm3y0kFlYFKksuDweQMbnIZ3YxlYTTy3AZ"; 
 // -------------------------
 
 const ACCOUNT_NUMBER = 4;
+const BALANCE_MULTIPLIER = 63;
 
 function Page4() {
   const [balance, setBalance] = useState<string | null>(null);
@@ -29,15 +29,26 @@ function Page4() {
     setLoading(true);
     setError(null);
     try {
+      // 4번 계정의 잔고와 포지션을 동시에 가져옴
       const [balanceRes, positionsRes] = await Promise.all([
         getWalletBalance(apiKey, apiSecret),
         getPositions(apiKey, apiSecret),
       ]);
 
-      const totalEquity = balanceRes?.list?.[0]?.totalEquity;
-      setBalance(totalEquity || null);
-
-      const openPositions = (positionsRes?.list || []).filter(p => parseFloat(p.size) > 0);
+      const baseEquity = balanceRes?.list?.[0]?.totalEquity;
+      if (baseEquity) {
+        const multipliedBalance = parseFloat(baseEquity) * BALANCE_MULTIPLIER;
+        setBalance(multipliedBalance.toString());
+      } else {
+        setBalance(null);
+      }
+      
+      const openPositions = (positionsRes?.list || [])
+        .filter(p => parseFloat(p.size) > 0)
+        .map(p => ({
+          ...p,
+          unrealisedPnl: (parseFloat(p.unrealisedPnl) * BALANCE_MULTIPLIER).toString(),
+        }));
       setPositions(openPositions);
       setLastUpdated(new Date());
 
