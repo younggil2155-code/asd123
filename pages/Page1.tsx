@@ -18,6 +18,7 @@ function Page1() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   const fetchData = useCallback(async () => {
     if (!apiKey || !apiSecret) {
@@ -69,14 +70,25 @@ function Page1() {
     const intervalId = setInterval(fetchData, 60000);
     return () => clearInterval(intervalId);
   }, [fetchData]);
+  
+  useEffect(() => {
+    const timerId = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timerId);
+  }, []);
 
   return (
     <div>
-      <header className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-cyan-400">
-          Bybit 이 병 형
-          <span className="block text-xl font-normal text-gray-300 mt-1">롱 & 횡보 자동매매 프로그램</span>
-        </h1>
+      <header className="flex justify-between items-start mb-6">
+        <div>
+            <h1 className="text-3xl font-bold text-cyan-400">
+              Bybit 이 병 형
+            </h1>
+            <span className="block text-xl font-normal text-gray-300 mt-1">롱 & 횡보 자동매매 프로그램</span>
+        </div>
+        <div className="text-right flex-shrink-0 ml-4">
+          <p className="text-sm font-semibold text-gray-400">{currentTime.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}</p>
+          <p className="text-3xl font-mono font-bold text-gray-100">{currentTime.toLocaleTimeString('ko-KR', { hour12: false })}</p>
+        </div>
       </header>
       <main className="space-y-6">
         <BalanceDisplay balance={balance} loading={loading} />

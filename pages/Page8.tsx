@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Page8() {
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timerId = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timerId);
+  }, []);
+  
   return (
     <div>
-      <header className="flex justify-between items-center mb-6">
+      <header className="flex justify-between items-start mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-cyan-400">
           Bybit 이병형 계정 8
         </h1>
+        <div className="text-right flex-shrink-0 ml-4">
+          <p className="text-sm font-semibold text-gray-400">{currentTime.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}</p>
+          <p className="text-3xl font-mono font-bold text-gray-100">{currentTime.toLocaleTimeString('ko-KR', { hour12: false })}</p>
+        </div>
       </header>
       <main className="flex items-center justify-center h-64 bg-gray-800 rounded-lg shadow-lg">
         <div className="text-center">
