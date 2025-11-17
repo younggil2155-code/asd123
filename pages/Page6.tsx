@@ -10,14 +10,15 @@ function Page6() {
 
   return (
     <div>
-      <header className="flex justify-between items-start mb-6">
+      <header className="mb-6 text-center">
         <h1 className="text-2xl sm:text-3xl font-bold text-cyan-400">
           Bybit 이병형 계정 6
         </h1>
-        <div className="text-right flex-shrink-0 ml-4">
-          <p className="text-sm font-semibold text-gray-400">{currentTime.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}</p>
-          <p className="text-3xl font-mono font-bold text-gray-100">{currentTime.toLocaleTimeString('ko-KR', { hour12: false })}</p>
-        </div>
+        <p className="text-base font-semibold text-gray-400 mt-2">
+          {currentTime.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}
+          {' '}
+          {currentTime.toLocaleTimeString('ko-KR', { hour12: false })}
+        </p>
       </header>
       <main className="flex items-center justify-center h-64 bg-gray-800 rounded-lg shadow-lg">
         <div className="text-center">
