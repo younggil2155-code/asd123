@@ -1,41 +1,28 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { getWalletBalance, getPositions } from '../services/bybitService';
 import type { Position } from '../types';
-import ApiKeyForm from '../components/ApiKeyForm';
 import BalanceDisplay from '../components/BalanceDisplay';
 import PositionsTable from '../components/PositionsTable';
 
+// --- 1번 계정 API 설정 ---
+// 아래 "" 안에 실제 API 키와 시크릿을 입력하세요.
+const apiKey = "lmR0bLeRckPwotF4Mj"; 
+const apiSecret = "B1UfE71yK6NCnJvxiajJRzw0aJcduBdztXXY"; 
+// -------------------------
+
 function Page1() {
-  const [apiKey, setApiKey] = useState<string | null>(null);
-  const [apiSecret, setApiSecret] = useState<string | null>(null);
   const [balance, setBalance] = useState<string | null>(null);
   const [positions, setPositions] = useState<Position[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const [isEditingKeys, setIsEditingKeys] = useState(false);
-
-  const API_KEY_STORAGE = 'bybitApiKey_page1';
-  const API_SECRET_STORAGE = 'bybitApiSecret_page1';
-
-  useEffect(() => {
-    // 이 페이지 전용 데이터만 읽기
-    const storedApiKey = localStorage.getItem(API_KEY_STORAGE);
-    const storedApiSecret = localStorage.getItem(API_SECRET_STORAGE);
-
-    console.log('Page1 - Loading API keys:', {
-      key: storedApiKey ? '있음' : '없음',
-      secret: storedApiSecret ? '있음' : '없음'
-    });
-
-    if (storedApiKey && storedApiSecret) {
-      setApiKey(storedApiKey);
-      setApiSecret(storedApiSecret);
-    }
-  }, []);
 
   const fetchData = useCallback(async () => {
-    if (!apiKey || !apiSecret) return;
+    if (!apiKey || !apiSecret) {
+      setError("1번 계정의 API 키와 시크릿이 코드에 설정되지 않았습니다.");
+      setLoading(false);
+      return;
+    }
 
     setLoading(true);
     setError(null);
@@ -46,11 +33,7 @@ function Page1() {
       ]);
 
       const totalEquity = balanceRes?.list?.[0]?.totalEquity;
-      if (totalEquity) {
-        setBalance(totalEquity);
-      } else {
-        setBalance(null);
-      }
+      setBalance(totalEquity || null);
 
       const openPositions = (positionsRes?.list || []).filter(p => parseFloat(p.size) > 0);
       setPositions(openPositions);
@@ -67,33 +50,13 @@ function Page1() {
     } finally {
       setLoading(false);
     }
-  }, [apiKey, apiSecret]);
+  }, []);
 
   useEffect(() => {
-    if (apiKey && apiSecret && !isEditingKeys) {
-      fetchData();
-      const intervalId = setInterval(fetchData, 60000);
-      return () => clearInterval(intervalId);
-    }
-  }, [apiKey, apiSecret, isEditingKeys, fetchData]);
-
-  const handleSaveKeys = (key: string, secret: string) => {
-    setApiKey(key);
-    setApiSecret(secret);
-    localStorage.setItem(API_KEY_STORAGE, key);
-    localStorage.setItem(API_SECRET_STORAGE, secret);
-    setIsEditingKeys(false);
-  };
-
-  const handleEditKeys = () => {
-    setIsEditingKeys(true);
-  };
-
-  const handleCancelEdit = () => {
-    setIsEditingKeys(false);
-  };
-
-  const hasApiKeys = apiKey && apiSecret;
+    fetchData();
+    const intervalId = setInterval(fetchData, 60000);
+    return () => clearInterval(intervalId);
+  }, [fetchData]);
 
   return (
     <div>
@@ -101,41 +64,23 @@ function Page1() {
         <h1 className="text-2xl sm:text-3xl font-bold text-cyan-400">
           Bybit 이병형 계정 1
         </h1>
-        {hasApiKeys && !isEditingKeys && (
-          <button
-            onClick={handleEditKeys}
-            className="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200"
-          >
-            API 키 수정
-          </button>
-        )}
       </header>
+      <main className="space-y-6">
+        <BalanceDisplay balance={balance} loading={loading} />
+        <PositionsTable positions={positions} loading={loading} />
 
-      {!hasApiKeys || isEditingKeys ? (
-        <ApiKeyForm
-          onSave={handleSaveKeys}
-          onCancel={hasApiKeys ? handleCancelEdit : undefined}
-          initialKey={apiKey}
-          initialSecret={apiSecret}
-        />
-      ) : (
-        <main className="space-y-6">
-          <BalanceDisplay balance={balance} loading={loading} />
-          <PositionsTable positions={positions} loading={loading} />
-
-          {error && (
-            <div className="bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded-lg" role="alert">
-              <strong className="font-bold">오류: </strong>
-              <span className="block sm:inline">{error}</span>
-            </div>
-          )}
-          {lastUpdated && !error && (
-            <p className="text-center text-gray-500 text-sm mt-4">
-              마지막 업데이트: {lastUpdated.toLocaleTimeString('ko-KR')}
-            </p>
-          )}
-        </main>
-      )}
+        {error && (
+          <div className="bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded-lg" role="alert">
+            <strong className="font-bold">오류: </strong>
+            <span className="block sm:inline">{error}</span>
+          </div>
+        )}
+        {lastUpdated && !error && (
+          <p className="text-center text-gray-500 text-sm mt-4">
+            마지막 업데이트: {lastUpdated.toLocaleTimeString('ko-KR')}
+          </p>
+        )}
+      </main>
     </div>
   );
 }
