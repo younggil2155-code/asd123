@@ -74,8 +74,9 @@ function Page3() {
   return (
     <div>
       <header className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-cyan-400">
-          Bybit 이병형 계정 {ACCOUNT_NUMBER}
+        <h1 className="text-3xl font-bold text-cyan-400">
+          Bybit 이 병 형
+          <span className="block text-xl font-normal text-gray-300 mt-1">숏 & 횡보 공격형매매 프로그램</span>
         </h1>
       </header>
       <main className="space-y-6">

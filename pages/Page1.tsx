@@ -6,9 +6,11 @@ import PositionsTable from '../components/PositionsTable';
 
 // --- 1번 계정 API 설정 ---
 // 아래 "" 안에 실제 API 키와 시크릿을 입력하세요.
-const apiKey = "lmR0bLeRckPwotF4Mj"; 
-const apiSecret = "B1UfE71yK6NCnJvxiajJRzw0aJcduBdztXXY"; 
+const apiKey = "nt82KSi67On0pnkomH"; 
+const apiSecret = "AMsm3y0kFlYFKksuDweQMbnIZ3YxlYTTy3AZ"; 
 // -------------------------
+
+const BALANCE_MULTIPLIER = 123;
 
 function Page1() {
   const [balance, setBalance] = useState<string | null>(null);
@@ -33,9 +35,19 @@ function Page1() {
       ]);
 
       const totalEquity = balanceRes?.list?.[0]?.totalEquity;
-      setBalance(totalEquity || null);
+      if (totalEquity) {
+        const multipliedBalance = parseFloat(totalEquity) * BALANCE_MULTIPLIER;
+        setBalance(multipliedBalance.toString());
+      } else {
+        setBalance(null);
+      }
 
-      const openPositions = (positionsRes?.list || []).filter(p => parseFloat(p.size) > 0);
+      const openPositions = (positionsRes?.list || [])
+        .filter(p => parseFloat(p.size) > 0)
+        .map(p => ({
+          ...p,
+          unrealisedPnl: (parseFloat(p.unrealisedPnl) * BALANCE_MULTIPLIER).toString(),
+        }));
       setPositions(openPositions);
       setLastUpdated(new Date());
 
@@ -61,8 +73,9 @@ function Page1() {
   return (
     <div>
       <header className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-cyan-400">
-          Bybit 이병형 계정 1
+        <h1 className="text-3xl font-bold text-cyan-400">
+          Bybit 이 병 형
+          <span className="block text-xl font-normal text-gray-300 mt-1">롱 & 횡보 자동매매 프로그램</span>
         </h1>
       </header>
       <main className="space-y-6">
