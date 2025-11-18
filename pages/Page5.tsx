@@ -12,10 +12,10 @@ function Page5() {
     <div>
       <header className="mb-6 text-center">
         <h1 className="text-2xl sm:text-3xl font-bold text-cyan-400">
-          Bybit 이병형 계정 5
+          Bybit 이병형 자동매매
         </h1>
         <p className="text-base font-semibold text-gray-400 mt-2">
-          {currentTime.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}
+          {currentTime.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
           {' '}
           {currentTime.toLocaleTimeString('ko-KR', { hour12: false })}
         </p>
