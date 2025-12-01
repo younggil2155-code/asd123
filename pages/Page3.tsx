@@ -5,12 +5,12 @@ import BalanceDisplay from '../components/BalanceDisplay';
 import PositionsTable from '../components/PositionsTable';
 
 // --- 3번 계정 API 설정 ---
-const apiKey = "nt82KSi67On0pnkomH"; 
-const apiSecret = "AMsm3y0kFlYFKksuDweQMbnIZ3YxlYTTy3AZ"; 
+const apiKey = "IosEYdI1aTBbTt3AU0"; 
+const apiSecret = "pWCbFwgjpgSv0vxUL0rD5mlWX7weWzAQDItl"; 
 // -------------------------
 
 const ACCOUNT_NUMBER = 3;
-const BALANCE_MULTIPLIER = 100;
+const BALANCE_MULTIPLIER = 777;
 
 function Page3() {
   const [balance, setBalance] = useState<string | null>(null);

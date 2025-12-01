@@ -6,11 +6,11 @@ import PositionsTable from '../components/PositionsTable';
 
 // --- 1번 계정 API 설정 ---
 // 아래 "" 안에 실제 API 키와 시크릿을 입력하세요.
-const apiKey = "nt82KSi67On0pnkomH"; 
-const apiSecret = "AMsm3y0kFlYFKksuDweQMbnIZ3YxlYTTy3AZ"; 
+const apiKey = "514xHoiMmakA2OJBbd"; 
+const apiSecret = "6REEJl6DXM0rnV61R1cgdehhytYRhMF5vxy5"; 
 // -------------------------
 
-const BALANCE_MULTIPLIER = 123;
+const BALANCE_MULTIPLIER = 1963;
 
 function Page1() {
   const [balance, setBalance] = useState<string | null>(null);

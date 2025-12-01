@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { getWalletBalance, getPositions } from '../services/bybitService';
 import type { Position } from '../types';
@@ -5,12 +6,12 @@ import BalanceDisplay from '../components/BalanceDisplay';
 import PositionsTable from '../components/PositionsTable';
 
 // --- 4번 계정 API 설정 ---
-const apiKey = "nt82KSi67On0pnkomH"; 
-const apiSecret = "AMsm3y0kFlYFKksuDweQMbnIZ3YxlYTTy3AZ"; 
+const apiKey = "IosEYdI1aTBbTt3AU0"; 
+const apiSecret = "pWCbFwgjpgSv0vxUL0rD5mlWX7weWzAQDItl"; 
 // -------------------------
 
 const ACCOUNT_NUMBER = 4;
-const BALANCE_MULTIPLIER = 63;
+const BALANCE_MULTIPLIER = 369;
 
 function Page4() {
   const [balance, setBalance] = useState<string | null>(null);
