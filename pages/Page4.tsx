@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { getWalletBalance, getPositions } from '../services/bybitService';
 import type { Position } from '../types';
@@ -6,12 +5,12 @@ import BalanceDisplay from '../components/BalanceDisplay';
 import PositionsTable from '../components/PositionsTable';
 
 // --- 4번 계정 API 설정 ---
-const apiKey = "IosEYdI1aTBbTt3AU0"; 
-const apiSecret = "pWCbFwgjpgSv0vxUL0rD5mlWX7weWzAQDItl"; 
+const apiKey = "EwQK457JeE6lFxSuFt"; 
+const apiSecret = "uZDlleyN6dPo9ORoAS1ewr2smvWtpJOqZ495"; 
 // -------------------------
 
 const ACCOUNT_NUMBER = 4;
-const BALANCE_MULTIPLIER = 369;
+const BALANCE_MULTIPLIER = 1000;
 
 function Page4() {
   const [balance, setBalance] = useState<string | null>(null);
@@ -31,15 +30,14 @@ function Page4() {
     setLoading(true);
     setError(null);
     try {
-      // 4번 계정의 잔고와 포지션을 동시에 가져옴
       const [balanceRes, positionsRes] = await Promise.all([
         getWalletBalance(apiKey, apiSecret),
         getPositions(apiKey, apiSecret),
       ]);
 
-      const baseEquity = balanceRes?.list?.[0]?.totalEquity;
-      if (baseEquity) {
-        const multipliedBalance = parseFloat(baseEquity) * BALANCE_MULTIPLIER;
+      const totalEquity = balanceRes?.list?.[0]?.totalEquity;
+      if (totalEquity) {
+        const multipliedBalance = parseFloat(totalEquity) * BALANCE_MULTIPLIER;
         setBalance(multipliedBalance.toString());
       } else {
         setBalance(null);

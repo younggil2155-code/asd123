@@ -4,13 +4,13 @@ import type { Position } from '../types';
 import BalanceDisplay from '../components/BalanceDisplay';
 import PositionsTable from '../components/PositionsTable';
 
-// --- 4번 계정 API 설정 (Page4에서 복사됨) ---
-const apiKey = "EwQK457JeE6lFxSuFt"; 
-const apiSecret = "uZDlleyN6dPo9ORoAS1ewr2smvWtpJOqZ495"; 
+// --- 6번 계정 API 설정 ---
+const apiKey = "dHOnjsFUgS3ZsObqZv"; 
+const apiSecret = "inZB9wnKdS3vsWDQxWcFFcfflMDQrsTVM8Kc"; 
 // -------------------------
 
 const ACCOUNT_NUMBER = 6;
-const BALANCE_MULTIPLIER = 1;
+const BALANCE_MULTIPLIER = 1000;
 
 function Page6() {
   const [balance, setBalance] = useState<string | null>(null);
@@ -35,9 +35,9 @@ function Page6() {
         getPositions(apiKey, apiSecret),
       ]);
 
-      const baseEquity = balanceRes?.list?.[0]?.totalEquity;
-      if (baseEquity) {
-        const multipliedBalance = parseFloat(baseEquity) * BALANCE_MULTIPLIER;
+      const totalEquity = balanceRes?.list?.[0]?.totalEquity;
+      if (totalEquity) {
+        const multipliedBalance = parseFloat(totalEquity) * BALANCE_MULTIPLIER;
         setBalance(multipliedBalance.toString());
       } else {
         setBalance(null);

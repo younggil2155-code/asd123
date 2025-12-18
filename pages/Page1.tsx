@@ -5,9 +5,8 @@ import BalanceDisplay from '../components/BalanceDisplay';
 import PositionsTable from '../components/PositionsTable';
 
 // --- 1번 계정 API 설정 ---
-// 아래 "" 안에 실제 API 키와 시크릿을 입력하세요.
-const apiKey = "514xHoiMmakA2OJBbd"; 
-const apiSecret = "6REEJl6DXM0rnV61R1cgdehhytYRhMF5vxy5"; 
+const apiKey = "EwQK457JeE6lFxSuFt"; 
+const apiSecret = "uZDlleyN6dPo9ORoAS1ewr2smvWtpJOqZ495"; 
 // -------------------------
 
 const BALANCE_MULTIPLIER = 1963;
