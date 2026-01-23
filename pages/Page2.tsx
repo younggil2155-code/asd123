@@ -22,7 +22,7 @@ function Page2() {
 
   const fetchData = useCallback(async () => {
     if (!apiKey || !apiSecret) {
-      setError(`${ACCOUNT_NUMBER}번 계정의 API 키와 시크릿이 코드에 설정되지 않았습니다.`);
+      setError(`${ACCOUNT_NUMBER}번 계정의 API 키와 시크릿이 설정되지 않았습니다.`);
       setLoading(false);
       return;
     }
@@ -79,9 +79,7 @@ function Page2() {
   return (
     <div>
       <header className="mb-6 text-center">
-        <h1 className="text-3xl font-bold text-cyan-400">
-          Bybit이병형자동매매
-        </h1>
+        <h1 className="text-3xl font-bold text-cyan-400">Bybit이병형자동매매</h1>
         <p className="text-base font-semibold text-gray-400 mt-2">
           {currentTime.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
           {' '}
@@ -91,7 +89,6 @@ function Page2() {
       <main className="space-y-6">
         <BalanceDisplay balance={balance} loading={loading} />
         <PositionsTable positions={positions} loading={loading} />
-
         {error && (
           <div className="bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded-lg" role="alert">
             <strong className="font-bold">오류: </strong>
@@ -99,9 +96,7 @@ function Page2() {
           </div>
         )}
         {lastUpdated && !error && (
-          <p className="text-center text-gray-500 text-sm mt-4">
-            마지막 업데이트: {lastUpdated.toLocaleTimeString('ko-KR')}
-          </p>
+          <p className="text-center text-gray-500 text-sm mt-4">마지막 업데이트: {lastUpdated.toLocaleTimeString('ko-KR')}</p>
         )}
       </main>
     </div>
