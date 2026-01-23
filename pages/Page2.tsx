@@ -5,8 +5,8 @@ import BalanceDisplay from '../components/BalanceDisplay';
 import PositionsTable from '../components/PositionsTable';
 
 // --- 2번 계정 API 설정 ---
-const apiKey = "EwQK457JeE6lFxSuFt"; 
-const apiSecret = "uZDlleyN6dPo9ORoAS1ewr2smvWtpJOqZ495"; 
+const apiKey = "zz8YBpexOL8o0XJVJE"; 
+const apiSecret = "xsmynlORjDRESJUh53Uw6ziqZ9yPEJ1msub0"; 
 // -------------------------
 
 const ACCOUNT_NUMBER = 2;
