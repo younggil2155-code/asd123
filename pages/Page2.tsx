@@ -10,7 +10,7 @@ const apiSecret = "xsmynlORjDRESJUh53Uw6ziqZ9yPEJ1msub0";
 // -------------------------
 
 const ACCOUNT_NUMBER = 2;
-const BALANCE_MULTIPLIER = 1369;
+const BALANCE_MULTIPLIER = 13690;
 
 function Page2() {
   const [balance, setBalance] = useState<string | null>(null);

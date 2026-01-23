@@ -9,7 +9,7 @@ const apiKey = "zz8YBpexOL8o0XJVJE";
 const apiSecret = "xsmynlORjDRESJUh53Uw6ziqZ9yPEJ1msub0"; 
 // -------------------------
 
-const BALANCE_MULTIPLIER = 1963;
+const BALANCE_MULTIPLIER = 20000;
 
 function Page1() {
   const [balance, setBalance] = useState<string | null>(null);
